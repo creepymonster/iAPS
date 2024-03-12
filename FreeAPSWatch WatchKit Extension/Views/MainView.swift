@@ -11,6 +11,7 @@ struct MainView: View {
 
     @State var isCarbsActive = false
     @State var isTargetsActive = false
+    @State var isOverrideActive = false
     @State var isBolusActive = false
     @State private var pulse = 0
     @State private var steps = 0
@@ -80,7 +81,18 @@ struct MainView: View {
                             .scaledToFill()
                             .minimumScaleFactor(0.5)
                     }
-                    Text(state.delta).font(.caption2).foregroundColor(.gray)
+                    /* IF YOU WANT TO DISPLAY MINUTES AGO, UNCOMMENT the gray code below
+                     let minutesAgo: TimeInterval = -1 * (state.glucoseDate ?? .distantPast).timeIntervalSinceNow / 60
+                     let minuteString = minutesAgo.formatted(.number.grouping(.never).rounded().precision(.fractionLength(0)))
+                     */
+                    HStack {
+                        /* if minutesAgo > 0 {
+                             Text(minuteString)
+                             Text("min")
+                         } */
+                        Text(state.delta)
+                    }
+                    .font(.caption2).foregroundColor(.gray)
                 }
                 Spacer()
 
@@ -261,20 +273,52 @@ struct MainView: View {
                     .foregroundColor(.loopYellow)
             }
 
-            NavigationLink(isActive: $state.isTempTargetViewActive) {
-                TempTargetsView()
-                    .environmentObject(state)
-            } label: {
-                VStack {
-                    Image("target", bundle: nil)
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.loopGreen)
-                    if let until = state.tempTargets.compactMap(\.until).first, until > Date() {
-                        Text(until, style: .timer)
-                            .scaledToFill()
-                            .font(.system(size: 8))
+            if state.profilesOrTempTargets {
+                NavigationLink(isActive: $state.isTempTargetViewActive) {
+                    TempTargetsView()
+                        .environmentObject(state)
+                } label: {
+                    VStack {
+                        Image("target", bundle: nil)
+                            .renderingMode(.template)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.loopGreen)
+                        if let until = state.tempTargets.compactMap(\.until).first, until > Date() {
+                            Text(until, style: .timer)
+                                .scaledToFill()
+                                .font(.system(size: 8))
+                        }
+                    }
+                }
+            } else {
+                NavigationLink(isActive: $state.isOverridesViewActive) {
+                    OverridesView()
+                        .environmentObject(state)
+                } label: {
+                    VStack {
+                        if let until = state.overrides.compactMap(\.until).first, until > Date.now {
+                            Image(systemName: "person.fill")
+                                .renderingMode(.template)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.purple)
+
+                            if until > Date.now.addingTimeInterval(48.hours.timeInterval) {
+                                Text("> 48h")
+                                    .scaledToFill()
+                                    .font(.system(size: 7))
+                            } else {
+                                Text(until, style: .timer)
+                                    .font(.system(size: 8))
+                            }
+                        } else {
+                            Image(systemName: "person")
+                                .renderingMode(.template)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.purple)
+                        }
                     }
                 }
             }

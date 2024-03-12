@@ -10,6 +10,12 @@ import Swinject
     @Injected() var settingsManager: SettingsManager!
     @Injected() var storage: TempTargetsStorage!
     @Injected() var fileStorage: FileStorage!
+    @Injected() var carbsStorage: CarbsStorage!
+    @Injected() var glucoseStorage: GlucoseStorage!
+    @Injected() var apsManager: APSManager!
+    @Injected() var nightscoutManager: NightscoutManager!
+
+    let overrideStorage = OverrideStorage()
 
     let resolver: Resolver
 

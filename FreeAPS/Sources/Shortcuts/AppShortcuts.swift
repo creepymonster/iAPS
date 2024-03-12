@@ -17,5 +17,26 @@ import Foundation
                 "\(.applicationName) state"
             ]
         )
+        AppShortcut(
+            intent: AddCarbPresentIntent(),
+            phrases: [
+                "Add carbs in \(.applicationName)",
+                "\(.applicationName) allows to add carbs"
+            ]
+        )
+        AppShortcut(
+            intent: ApplyOverrideIntent(),
+            phrases: [
+                "Activate an \(.applicationName) Override Preset",
+                "Activates an \(.applicationName) Override Preset"
+            ]
+        )
+        AppShortcut(
+            intent: CancelOverrideIntent(),
+            phrases: [
+                "Cancel \(.applicationName) Overide",
+                "Cancels an active \(.applicationName) override"
+            ]
+        )
     }
 }

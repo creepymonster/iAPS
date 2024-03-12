@@ -38,20 +38,28 @@ extension Settings {
                         Text("Apple Health").navigationLink(to: .healthkit, from: self)
                     }
                     Text("Notifications").navigationLink(to: .notificationsConfig, from: self)
-                    Text("Fat And Protein Conversion").navigationLink(to: .fpuConfig, from: self)
-                    Text("App Icons").navigationLink(to: .iconConfig, from: self)
-                    Text("Statistics and Home View").navigationLink(to: .statisticsConfig, from: self)
                 } header: { Text("Services") }
 
                 Section {
-                    Text("Preferences").navigationLink(to: .preferencesEditor, from: self)
                     Text("Pump Settings").navigationLink(to: .pumpSettingsEditor, from: self)
                     Text("Basal Profile").navigationLink(to: .basalProfileEditor, from: self)
                     Text("Insulin Sensitivities").navigationLink(to: .isfEditor, from: self)
                     Text("Carb Ratios").navigationLink(to: .crEditor, from: self)
                     Text("Target Glucose").navigationLink(to: .targetsEditor, from: self)
-                    Text("Autotune").navigationLink(to: .autotuneConfig, from: self)
                 } header: { Text("Configuration") }
+
+                Section {
+                    Text("OpenAPS").navigationLink(to: .preferencesEditor, from: self)
+                    Text("Autotune").navigationLink(to: .autotuneConfig, from: self)
+                } header: { Text("OpenAPS") }
+
+                Section {
+                    Text("UI/UX").navigationLink(to: .statisticsConfig, from: self)
+                    Text("App Icons").navigationLink(to: .iconConfig, from: self)
+                    Text("Bolus Calculator").navigationLink(to: .bolusCalculatorConfig, from: self)
+                    Text("Fat And Protein Conversion").navigationLink(to: .fpuConfig, from: self)
+                    Text("Dynamic ISF").navigationLink(to: .dynamicISF, from: self)
+                } header: { Text("Extra Features") }
 
                 Section {
                     Toggle("Debug options", isOn: $state.debugOptions)
@@ -63,6 +71,22 @@ extension Settings {
                                     .frame(maxWidth: .infinity, alignment: .trailing)
                                     .buttonStyle(.borderedProminent)
                             }
+
+                            HStack {
+                                Text("Delete All NS Overrides")
+                                Button("Delete") { state.deleteOverrides() }
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                    .buttonStyle(.borderedProminent)
+                                    .tint(.red)
+                            } /*
+
+                             HStack {
+                                 Text("Delete latest NS Override")
+                                 Button("Delete") { state.deleteOverride() }
+                                     .frame(maxWidth: .infinity, alignment: .trailing)
+                                     .buttonStyle(.borderedProminent)
+                                     .tint(.red)
+                             } */
                         }
                         Group {
                             Text("Preferences")
@@ -96,6 +120,8 @@ extension Settings {
                                 .navigationLink(to: .configEditor(file: OpenAPS.FreeAPS.announcements), from: self)
                             Text("Enacted announcements")
                                 .navigationLink(to: .configEditor(file: OpenAPS.FreeAPS.announcementsEnacted), from: self)
+                            Text("Overrides Not Uploaded")
+                                .navigationLink(to: .configEditor(file: OpenAPS.Nightscout.notUploadedOverrides), from: self)
                             Text("Autotune")
                                 .navigationLink(to: .configEditor(file: OpenAPS.Settings.autotune), from: self)
                             Text("Glucose")
@@ -131,10 +157,11 @@ extension Settings {
             .sheet(isPresented: $showShareSheet) {
                 ShareSheet(activityItems: state.logItems())
             }
+            .dynamicTypeSize(...DynamicTypeSize.xxLarge)
             .onAppear(perform: configureView)
             .navigationTitle("Settings")
-            .navigationBarItems(leading: Button("Close", action: state.hideSettingsModal))
-            .navigationBarTitleDisplayMode(.automatic)
+            .navigationBarItems(trailing: Button("Close", action: state.hideSettingsModal))
+            .navigationBarTitleDisplayMode(.inline)
             .onDisappear(perform: { state.uploadProfileAndSettings(false) })
         }
     }
