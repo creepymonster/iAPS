@@ -320,6 +320,9 @@
 /* Button title to set temporary basal rate */
 "Set Temporary Basal Rate" = "Cài đặt liều nền tạm thời";
 
+/* Description text on manual temp basal action sheet */
+"Your insulin delivery will not be automatically adjusted until the temporary basal rate finishes or is canceled." = "Việc cung cấp insulin của bạn sẽ không được điều chỉnh tự động cho đến khi mức cơ bản tạm thời kết thúc hoặc bị hủy bỏ.";
+
 /* Section header for activity section */
 "Activity" = "Hoạt động";
 
@@ -451,7 +454,7 @@
 "Paired" = "Đã ghép đôi";
 
 /* Cancel button text in navigation bar on pair pod UI */
-"Cancel" = "Bỏ qua";
+"Cancel" = "Hủy";
 
 /* Alert title for cancel pairing modal */
 "Are you sure you want to cancel Pod setup?" = "Bạn có chắc chắn muốn hủy cấu hình pod?";
@@ -620,7 +623,7 @@
 "Rate" = "Tỷ lệ";
 
 /* Insulin unit per hour */
-"U/hr" = "U/hr";
+"U/hr" = "U/giờ";
 
 /* Summary string for temporary basal rate configuration page */
 "%1$@ for %2$@" = "%1$@ cho %2$@";

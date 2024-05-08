@@ -276,7 +276,7 @@
 "Skipping Read Pulse Log due to bolus still in progress." = "Ignorer les bips de test en raison du bolus en cours.";
 
 /* */
-"Read Pulse Log" = "Lecture journal d'impulsion";
+"Read Pulse Log" = "Journal des impulsions";
 
 /* */
 "Set Confirmation Beeps to %s" = "Définir les bips de confirmation à %s";
@@ -319,6 +319,9 @@
 
 /* Button title to set temporary basal rate */
 "Set Temporary Basal Rate" = "Régler basal temporaire";
+
+/* Description text on manual temp basal action sheet */
+"Your insulin delivery will not be automatically adjusted until the temporary basal rate finishes or is canceled." = "Votre taux d'insuline basale ne sera pas automatiquement ajustée jusqu'à la fin ou l'annulation du taux de basal temporaire.";
 
 /* Section header for activity section */
 "Activity" = "Activité";
@@ -682,7 +685,7 @@
 "Pod Activated" = "Pod activé";
 
 /* description label for active time pod details row */
-"Active Time" = "Heure d’activation";
+"Active Time" = "Durée d’activité";
 
 /* description label for last status date pod details row */
 "Last Status" = "Dernier état";
@@ -837,7 +840,7 @@
 "Pod Diagnostics" = "Diagnostics du pod";
 
 /* Text for read pulse log plus title */
-"Read Pulse Log Plus" = "Read Pulse Log Plus";
+"Read Pulse Log Plus" = "Journal des impulsions étendu";
 
 /* Text for read activation time title */
 "Read Activation Time" = "Lire le temps d'activation";
